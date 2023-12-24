@@ -5,7 +5,7 @@ const getCart = async() => {
 
     try {
       // make axios post request
-      const res = await axios.get ('/carts/dishincarts')
+      const res = await axios.get ('/carts/productincarts')
       return res;
     } catch(error) {
         return error.response.data;

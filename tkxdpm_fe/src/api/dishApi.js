@@ -3,7 +3,7 @@ import axios from '../setup/CustomAxios';
 const getDish = async() => {
     try {
       // make axios post request
-      const res = await axios.get ('/dishes')
+      const res = await axios.get ('/products')
        return (res);
     } catch(error) {
         return error.response.data;

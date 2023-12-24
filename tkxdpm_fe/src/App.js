@@ -35,12 +35,12 @@ function App() {
     // call api
     (async () => {
 
-      const res = await getCart()
+      // const res = await getCart()
       const food = await getDish();
       const cate = await getCate();
       setCateList (cate);
       setFoodList (food);
-      setCartItems (res)
+      // setCartItems (res)
 
     })()
 

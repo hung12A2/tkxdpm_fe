@@ -1,16 +1,12 @@
 import * as React from "react";
 import { fetchUtils, Admin, Resource } from 'react-admin'
 import simpleRestProvider from 'ra-data-simple-rest'
-import { listProducts, editProduct, createProduct } from './categories'
-import { listDishes, CreateDish, EditDishes } from "./dishs";
+import { ListProducts, editProduct, createProduct } from './categories'
+import { ListDishes, CreateDish, EditDishes } from "./products";
 import axios from '../../../setup/CustomAxios';
 import { ListOrders } from "./order";
 import { AppBar, Layout } from "react-admin";
 import { useNavigate } from "react-router-dom";
-
-
-
-
 
 const httpClient = (url, options = {}) => {
     if (!options.headers) {
@@ -40,14 +36,15 @@ export default function AdminPage() {
         >
             <Resource
                 name='categories'
-                list={listProducts}
+                list={ListProducts}
                 edit={editProduct}
                 create={createProduct}
+                
             />
 
             <Resource
-                name="dishes"
-                list={listDishes}
+                name="products"
+                list={ListDishes}
                 edit={EditDishes}
                 create={CreateDish}
             />
@@ -55,7 +52,6 @@ export default function AdminPage() {
             <Resource
                 name="orders"
                 list={ListOrders}
-
             />
 
         </Admin></div>
