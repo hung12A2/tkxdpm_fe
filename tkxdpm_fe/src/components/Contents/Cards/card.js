@@ -6,21 +6,20 @@ import {AddContext} from "../../../App"
 
 export default function Card({foodList,state,setState}) {
     const navigate=useNavigate();
-    const cartItems= useContext(AddContext);
+    const { cartItems }= useContext(AddContext);
     const [pre, setPre] = useState(true);
 
-    let foodCate = foodList.filter(e => e.catename === state);
+    let foodCate = foodList.filter(e => e.idOfCategory === state);
     if(state ==='all')
         foodCate = foodList;
     if(state ==='popular'){
         foodCate = foodList.filter(e => e.isBestSeller === true);
     }
-    function checkInCart(foodName){
-        if (!localStorage.getItem('user')) return false
+    function checkInCart(id){
+        // if (!localStorage.getItem('user')) return false
         if(cartItems ===undefined)
             return false;
-        if(cartItems.find(e => e.name === foodName)){
-
+        if(cartItems.find(e => e.id === id)){
             return true;
         }
         return false;
@@ -30,17 +29,16 @@ export default function Card({foodList,state,setState}) {
       <>
         <div className="flex flex-row flex-wrap space-x-4 justify-between pt-14 items-center "> 
 
-        <h3 className="basis-1/8 m-auto textfont-medium text-lg text-center md:text-left text-xl md:ml-44 flex items-center "> Popular foods</h3>
+        <h3 className="basis-1/8 m-auto textfont-medium text-center md:text-left text-xl md:ml-44 flex items-center "></h3>
 
-        <div className="flex basis-1/8 hidden md:flex">
+        <div className="flex basis-1/8 md:flex">
 
             <a className="cursor-pointer mr-44 whitespace-nowrap w-36 inline-flex items-center justify-center px-2 py-1
                         border border-transparent rounded-3xl shadow-sm text-base font-medium text-white bg-green-500 hover:bg-green-600
                         transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110"
                         onClick={()=>{ navigate('/Menu'); setState('all'); setPre(!pre);}} href="#">
             View all
-                
-                
+    
             </a>
 
         </div>
@@ -79,7 +77,7 @@ export default function Card({foodList,state,setState}) {
                         
                         <div className="flex justify-between items-center">
                             <span className='text-3xl font-bold text-gray-900'>${food.price}</span>
-                            {checkInCart(food.name) && <AddButton></AddButton> ?<CheckButton></CheckButton>:<AddButton></AddButton>}
+                            {checkInCart(food.id) && <AddButton></AddButton> ?<CheckButton></CheckButton>:<AddButton></AddButton>}
                            
                         </div>
                         </div>

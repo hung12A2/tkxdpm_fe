@@ -14,21 +14,14 @@ const getCart = async() => {
    
   }
 
-  export const updateCart= async(formValue,token) => {
-
-    if( formValue===undefined || formValue == []){
-        return;
-    }
-
+  export const updateCart= async(idOfProduct, quantity) => {
+    
     try {
-      // make axios post request
-      const res = await axios({
-        method: "patch",
-        url: "http://localhost:5000/api/cart/update",
-        data: formValue,
-        headers: { authorization:token},
-      });
-      return res.data;
+      const res = await axios.post (`/carts/${idOfProduct}/productincarts`, {
+        quantity
+      })
+      return res;
+
     } catch(error) {
         return error.response.data;
     }

@@ -35,41 +35,48 @@ function App() {
     // call api
     (async () => {
 
-      // const res = await getCart()
+      const res = await getCart()
       const food = await getDish();
       const cate = await getCate();
       setCateList (cate);
       setFoodList (food);
-      // setCartItems (res)
+      setCartItems (res.products)
 
     })()
 
   }, [])
 
+  console.log (foodList);
+  console.log (cartItems)
+
   function onAdd(product) {
-    const exist = cartItems.find(x => x.name === product.name);
+    const exist = cartItems.find(x => x.id === product.id);
 
     if (exist) {
-      setCartItems(cartItems.map(x => x.id === product.id ? { ...exist, quantity: exist.quantity + 1 } : x));
+      setCartItems(cartItems.map(x => x.id === product.id ? { ...exist } : x));
+      
     }
     else {
-      setCartItems([...cartItems, { ...product, quantity: 1 }]);
+      setCartItems([...cartItems, { ...product, quantity: 1, totalPrice: product.price }]);
     }
   }
 
   function onRemove(product) {
-    for (var i = 0; i < cartItems.length; i++) {
-      if (cartItems[i].name === product.name) {
-        setCartItems(cartItems.splice(i, 1));
-        console.log(cartItems);
-      }
-    }
+    // for (let i = 0; i < cartItems.length; i++) {
+    //   if (cartItems[i].id === product.id) {
+    //     setCartItems(cartItems.splice(i, 1));
+    //     console.log(cartItems);
+    //   }
+    // }
+    setCartItems (cartItems.filter ((cartItem) => {
+      return cartItem.id !== product.id
+    }) )
   }
 
   return (
     <>
 
-      <AddContext.Provider value={cartItems}>
+      <AddContext.Provider value={{cartItems, setCartItems}}>
         <Routes>
           <Route path="/Menu" element={<Menu foodList={foodList} cateList={cateList} />} />
           <Route path="/About" element={<About />} />

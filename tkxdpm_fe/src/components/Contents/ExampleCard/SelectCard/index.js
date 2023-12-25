@@ -7,7 +7,6 @@ import {useEffect} from "react";
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import 'swiper/css/navigation';
-import { getCate } from '../../../../api/dishApi';
 
 // const selectMenu = [
 //     {
@@ -78,16 +77,16 @@ export default function SelectCard({cateList,state,setState}) {
                 cateList.map((menu,index)=>(
                 <SwiperSlide key={index}>
                     <div className="flex flex-col lg:flex-row flex-wrap gap-x-8 gap-y-20 justify-center items-center pt-8 mb-4"
-                    onClick={()=>{setState(menu.catename)}}
+                    onClick={()=>{setState(menu.id)}}
                     >
 
                     <div className="basis-1/2 h-28 rounded-2xl flex flex-col xl:flex-row items-center justify-center shadow-lg
-                        border border-solid border-green-500 border-2 transition ease-in-out hover:-translate-y-1 hover:scale-110
+                        border-solid border-green-500 border-2 transition ease-in-out hover:-translate-y-1 hover:scale-110
                         hover:bg-green-100"> 
 
                         <img className="w-24 ml-6 h-24" src={menu.image} alt=""></img>
                         
-                        <p className="mx-auto font-semibold text-xl">{menu.catename}</p>
+                        <p className="mx-auto font-semibold text-xl pb-5">{menu.cateName}</p>
                         
                     </div>
                     </div>

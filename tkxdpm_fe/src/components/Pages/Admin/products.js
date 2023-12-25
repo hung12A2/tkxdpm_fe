@@ -71,7 +71,6 @@ export const EditDishes = (props) => {
                 <NumberInput source='price' />
                 <NumberInput source='countInStock' />
                 <BooleanInput source='isBestSeller' />
-                <BooleanInput source='isDeleted' />
                 <SelectInput
                     source='idOfCategory'
                     label='Category Name'
@@ -105,7 +104,6 @@ export const CreateDish = (props) => {
                 <NumberInput source='price' />
                 <NumberInput source='countInStock' />
                 <BooleanInput source='isBestSeller' />
-                <BooleanInput source='isDeleted' />
                 <SelectInput
                     source='idOfCategory'
                     label='Category Name'

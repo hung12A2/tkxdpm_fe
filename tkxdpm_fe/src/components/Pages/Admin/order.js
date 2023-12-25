@@ -39,7 +39,7 @@ export const ListOrders = (props) => {
         <List {...props}>
             <Datagrid bulkActionButtons={false}
                 rowStyle={record => ({
-                    backgroundColor: (!record.isAccepted) ? '#ffb3d1' : '#abf7b1',
+                    backgroundColor: (!record.isAccepted) ? '#ffb3d1' : '',
 
                 })}
             >

@@ -12,7 +12,7 @@ const categories =[
         id:2,
         name:'Fast Food',
         description:'Favorite fastfood for everyone. Delicious and fast',
-        image:'https://www.seekpng.com/png/full/89-891255_fast-food-png-food.png'
+        image:'https://i.truyenvua.com/slider/583x386/slider_1560573084.jpg?gt=hdfgdfg&mobile=2'
     },
     {
         id:3,

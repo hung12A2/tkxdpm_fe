@@ -8,7 +8,7 @@ import { updateCart } from "../../../api/cartApi";
 
 export default function Cart({onRemove}) {
 
-    const cartItems= useContext(AddContext);
+    const { cartItems }= useContext(AddContext);
 
     const[ count,setCount]= useState(false);
 
@@ -20,7 +20,7 @@ export default function Cart({onRemove}) {
   return (
     <>
     <Header/>
-    <p className="text-xl font-bold pt-8 ml-32 pb-8 pt-32">Shopping Cart</p>
+    <p className="text-xl font-bold ml-32 pb-8 pt-32">Shopping Cart</p>
 
     <div className="flex flex-col flex-wrap lg:flex-row items-center justify-center space-y-8">
         {/* cart items */}
@@ -41,7 +41,7 @@ export default function Cart({onRemove}) {
                     <button className="mt-12 mb-12 bg-white rounded-xl m-auto bg-green-300" 
                     onClick={()=>{setCount(!count); 
                     cart.quantity=cart.quantity+1;  
-                    updateCart(cartItems,localStorage.getItem('user'))} 
+                    updateCart(cart.id, cart.quantity)} 
                     }>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -54,7 +54,7 @@ export default function Cart({onRemove}) {
                     onClick={()=>{setCount(!count); cart.quantity=cart.quantity-1;
                         if(cart.quantity<1)
                           cart.quantity=1; 
-                          updateCart(cartItems,localStorage.getItem('user'))
+                          updateCart(cart.id,cart.quantity)
                           }
                         }>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -64,7 +64,7 @@ export default function Cart({onRemove}) {
 
                     <p className="m-auto ml-8 text-2xl font-semibold">${+cart.price *(+cart.quantity)}</p>
 
-                    <button className="bg-red-300 rounded-2xl m-auto ml-12 mr-4" onClick={()=>{ onRemove(cart); updateCart(cartItems,localStorage.getItem('user')); setCount(!count);}}>
+                    <button className="bg-red-300 rounded-2xl m-auto ml-12 mr-4" onClick={()=>{ onRemove(cart); updateCart(cart.id,0); setCount(!count);}}>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>

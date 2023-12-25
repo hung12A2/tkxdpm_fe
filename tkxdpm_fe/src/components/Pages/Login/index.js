@@ -4,8 +4,11 @@ import { ReactNotifications } from 'react-notifications-component'
 import { Store } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css'
 import {login, userInfo} from '../../../api/userApi'
-
+import { AddContext } from '../../../App';
+import getCart from '../../../api/cartApi';
+import { useContext } from 'react';
 export default function Login() {
+    const { setCartItems}  = useContext(AddContext);
     var result;
     var path= '';
     var notify ='warning';
@@ -55,7 +58,9 @@ export default function Login() {
                         setTimeout (() => navigate("/admin"), 1001)
                     }
                     else {
+                        setCartItems ((await getCart()).products)
                         setTimeout (() => navigate("/"), 1001)
+                        
                     }
                 }    
             }

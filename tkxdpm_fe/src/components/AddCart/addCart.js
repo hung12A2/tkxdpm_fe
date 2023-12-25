@@ -1,17 +1,5 @@
 import {useState} from 'react'
 
-// const Addcart = () => {
-
-    
-
-//     function AddItem(product){
-     
-//     return (
-//         <div>
-            
-//         </div>
-//     );
-// }
 
 export default Addcart;
 
