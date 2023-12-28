@@ -16,11 +16,12 @@ for (var i = 0; i < cityLabels.length; i++){
     cities.push({label: cityLabels[i]});
 }
 
-const SelectCity = () => {
+const SelectCity = ({onSelectCity}) => {
   const [selectedCity, setSelectedCity] = useState(null);
 
   const handleCityChange = (selectedOption) => {
     setSelectedCity(selectedOption);
+    onSelectCity(selectedOption.label)
   };
 
   return (
