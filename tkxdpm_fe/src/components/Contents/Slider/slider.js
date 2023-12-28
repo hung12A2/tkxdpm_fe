@@ -1,9 +1,9 @@
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay,Pagination} from 'swiper';
-import beepsteak from '../../../images/beefsteak.png'
-import salad from '../../../images/salad.png'
-import salad2 from '../../../images/salad2.png'
+import harrypotter from '../../../images/harrypotter.png'
+import bp_disk from '../../../images/bp_disk.jpg'
+import lotr from '../../../images/lotr.png'
 
 
 
@@ -11,37 +11,36 @@ import salad2 from '../../../images/salad2.png'
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import 'swiper/css/pagination';
-import { useEffect } from 'react';
 
 const sliderList = [
   {
   id:1,
-  content :'THE BEST CUISINE AWAITS YOUS',
-  secondaryContent :'Beefsteak',
-  thirContent :'Delicious!',
-  discount :'20% | DISCOUNT UPON',
+  content :'Chào mừng tới với AIMS',
+  secondaryContent :'Harry Potter',
+  thirContent :'Best seller',
+  discount :'Giảm tới 20%',
   buttonContent:'Register',
-  image:beepsteak
+  image:harrypotter
   },
 
   {
   id:2,
-  content :'THE BEST CUISINE AWAITS YOUS',
-  secondaryContent :'Best food',
-  thirContent :'Healthy food',
-  discount :'20% | DISCOUNT UPON',
+  content :'Nổi bật',
+  secondaryContent :'BlackPink The Album',
+  thirContent :'Hay lắm',
+  discount :'Giảm tới 20%',
   buttonContent:'Register',
-  image:salad
+  image:bp_disk
   },
 
   {
     id:3,
-    content :'THE BEST CUISINE AWAITS YOUS',
-    secondaryContent :'Welcome!',
-    thirContent :'To my food',
-    discount :'20% | DISCOUNT UPON',
+    content :'Phiêu lưu',
+    secondaryContent :'Chúa tể những chiếc nhẫn',
+    thirContent :'Tiểu thuyết kỳ ảo',
+    discount :'Giảm tới 20%',
     buttonContent:'Register',
-    image:salad2
+    image:lotr
   },
     
 ]
@@ -67,8 +66,8 @@ export default function Slider() {
             <div  className="basis-3/4 rounded-lg flex items-center justify-center lg:ml-32">
                 <div className="flex flex-col p-8 lg:p-32">
                   <h3 className="text-gray-600 p-2">{slider.content}</h3>
-                  <h2 className="font-medium text-5xl p-2">{slider.secondaryContent}</h2>
-                  <h2 className="font-bold text-5xl p-2">{slider.thirContent}</h2>
+                  <h2 className="font-medium text-4xl p-2">{slider.secondaryContent}</h2>
+                  <h2 className="font-bold text-4xl p-2">{slider.thirContent}</h2>
                   <h3 className="font-bold text-3xl text-green-600 p-4">{slider.discount}</h3>
 
                   {/* <button onClick={() => navigate("/Signup")}

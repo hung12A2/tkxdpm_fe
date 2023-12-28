@@ -9,7 +9,7 @@ export default function Footer() {
 				<div className="flex items-center justify-center w-12 h-12 rounded-full ">
 					<img src="https://static.wixstatic.com/media/2cd43b_17040a042929442094fd1a2179d5bd29~mv2.png/v1/fill/w_320,h_320,q_90/2cd43b_17040a042929442094fd1a2179d5bd29~mv2.png" alt=""></img>
 				</div>
-				<span className="self-center text-3xl font-bold text-blue-600 ">Luna Eatery</span>
+				<span className="self-center text-3xl font-bold text-blue-600 ">AIMS</span>
 			</a>
 		</div>
 		<div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-4">
@@ -17,16 +17,16 @@ export default function Footer() {
 				<h3 className="tracking-wide uppercase dark:text-coolGray-50 font-semibold text-lg">Quick Links</h3>
 				<ul className="space-y-1">
 					<li>
-						<a rel="noopener noreferrer" href="#" className='font-medidum hover:text-green-500'>Home</a>
+						<a rel="noopener noreferrer" href="#" className='font-medidum hover:text-green-500'>Trang chủ</a>
 					</li>
 					<li>
-						<a rel="noopener noreferrer" href="#" className='font-medidum hover:text-green-500'>Menu</a>
+						<a rel="noopener noreferrer" href="#" className='font-medidum hover:text-green-500'>Sản phẩm</a>
 					</li>
 					<li>
 						<a rel="noopener noreferrer" href="#" className='font-medidum hover:text-green-500'>About</a>
 					</li>
 					<li>
-						<a rel="noopener noreferrer" href="#" className='font-medidum hover:text-green-500'>Reviews</a>
+						<a rel="noopener noreferrer" href="#" className='font-medidum hover:text-green-500'>Đánh giá</a>
 					</li>
 				</ul>
 			</div>

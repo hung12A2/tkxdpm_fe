@@ -90,7 +90,7 @@ export default function Header() {
                   alt=""
                 />
                 <span className="font-bold text-2xl px-2 text-blue-600">
-                  Luna Eatery
+                  AIMS
                 </span>
               </div>
             </div>
@@ -108,7 +108,7 @@ export default function Header() {
                 navigate("/");
               }}
             >
-              Home
+              Trang chủ
             </div>
             <div
               className="cursor-pointer text-lg font-medium text-gray-500 hover:text-gray-900"
@@ -116,7 +116,7 @@ export default function Header() {
                 navigate("/Menu");
               }}
             >
-              Menu
+              Sản phẩm
             </div>
             <div
               className="cursor-pointer text-lg font-medium text-gray-500 hover:text-gray-900"
