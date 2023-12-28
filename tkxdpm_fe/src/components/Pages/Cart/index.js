@@ -4,10 +4,15 @@ import Header from "../../Header";
 import { AddContext } from "../../../App";
 import { updateCart } from "../../../api/cartApi";
 import SelectCity from "../../Contents/SelectCity/selectCity";
+import { ReactNotifications } from 'react-notifications-component'
+import {handleNotify} from "../../Notification/notification"
 
 export default function Cart({ onRemove }) {
   const { cartItems } = useContext(AddContext);
-
+  const [name, setName] = useState('');
+  const [city, setCity] = useState('');
+  const [address, setAddress] = useState('');
+  const [note, setNote] = useState('');
   const [count, setCount] = useState(false);
 
   var productPrice = 0;
@@ -16,8 +21,31 @@ export default function Cart({ onRemove }) {
     productPrice += cartItems[i].price * cartItems[i].quantity;
   }
 
+  const changeNameValue = (event) => {
+    setName(event.target.value)
+  }
+  const changeCityValue = (city) => {
+    setCity(city)
+  }
+  const changeAddressValue = (event) => {
+    setAddress(event.target.value)
+  }
+  const changeNoteValue = (event) => {
+    setNote(event.target.value)
+  }
+  const handleClickPay =() => {
+    // console.log({name, city, address, note})
+    if (!name || !city || !address){
+      handleNotify('warning',"Warning",'Cần nhập đủ thông tin')
+    } 
+    else{
+      handleNotify('info',"Xin lỗi",'Tính năng này đang cập nhật')
+    }
+  }
+
   return (
     <>
+      <ReactNotifications />
       <Header />
       <p className="text-xl font-bold ml-32 pb-8 pt-32">Giỏ hàng</p>
 
@@ -193,6 +221,7 @@ export default function Cart({ onRemove }) {
                 Họ và tên
               </label>
               <input
+                onChange={changeNameValue}
                 type="text"
                 id="large-input"
                 className="bg-gray-50 border border-blue-400 text-gray-900 border-2
@@ -208,7 +237,7 @@ export default function Cart({ onRemove }) {
               >
                 Thành phố
               </label>
-              <SelectCity/>
+              <SelectCity onSelectCity={changeCityValue} />
             </div>
 
             <div className="mb-6 mx-4">
@@ -219,6 +248,7 @@ export default function Cart({ onRemove }) {
                 Địa chỉ cụ thể
               </label>
               <input
+                onChange={changeAddressValue}
                 type="text"
                 id="base-input"
                 className="bg-gray-50 border border-blue-400 text-gray-900 border-2
@@ -235,6 +265,7 @@ export default function Cart({ onRemove }) {
                 Ghi chú
               </label>
               <input
+                onChange={changeNoteValue}
                 type="text"
                 id="small-input"
                 className="bg-gray-50 border border-blue-400 text-gray-900 border-2
@@ -260,6 +291,7 @@ export default function Cart({ onRemove }) {
             </p>
 
             <button
+              onClick={handleClickPay}
               className="mt-8 ml-4 whitespace-nowrap w-32 inline-flex items-center justify-center 
                   px-4 py-2 border border-transparent rounded-3xl shadow-sm text-base font-medium text-white bg-blue-400 hover:bg-blue-600"
             >

@@ -1,4 +1,6 @@
 import React from 'react';
+import { Store } from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css'
 
 
 export default function Notification() {
@@ -25,5 +27,20 @@ export default function Notification() {
         </div>
         </>
     );
+}
+export function handleNotify(type, title, message){
+    Store.addNotification({
+        title: title,
+        message: message,
+        type: type,
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 1000,
+          onScreen: true
+        }
+      });
 }
 
