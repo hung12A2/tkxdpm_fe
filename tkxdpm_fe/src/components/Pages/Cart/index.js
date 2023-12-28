@@ -3,15 +3,17 @@ import Footer from "../../Footer";
 import Header from "../../Header";
 import { AddContext } from "../../../App";
 import { updateCart } from "../../../api/cartApi";
+import SelectCity from "../../Contents/SelectCity/selectCity";
 
 export default function Cart({ onRemove }) {
   const { cartItems } = useContext(AddContext);
 
   const [count, setCount] = useState(false);
 
-  var totalPrice = 0;
+  var productPrice = 0;
+  var shippingFee = 0;
   for (var i = 0; i < cartItems.length; i++) {
-    totalPrice += cartItems[i].price * cartItems[i].quantity;
+    productPrice += cartItems[i].price * cartItems[i].quantity;
   }
 
   return (
@@ -129,9 +131,9 @@ export default function Cart({ onRemove }) {
         {/*cart info */}
         <div className="basis-1/3 flex flex-col items-left md:mr-16 px-2">
           <div className="bg-gray-100  rounded-2xl pb-8">
-            <p className="text-xl font-semibold mx-8 mt-8">Cart Items</p>
+            <p className="text-xl font-semibold mx-8 mt-8">Thanh toán</p>
 
-            <p className="mx-8 mt-4">Payment Method</p>
+            <p className="mx-8 mt-4">Phương thức thanh toán</p>
 
             <div className="mx-4 mt-4 items-center flex">
               <div className="flex items-center mb-4 border border-green-500 border-2 bg-white rounded-xl mx-8 mt-4 items-center flex w-40">
@@ -204,7 +206,17 @@ export default function Cart({ onRemove }) {
                 htmlFor="base-input"
                 className="block mb-2 text-sm font-medium text-gray-900"
               >
-                Địa chỉ
+                Thành phố
+              </label>
+              <SelectCity/>
+            </div>
+
+            <div className="mb-6 mx-4">
+              <label
+                htmlFor="base-input"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
+                Địa chỉ cụ thể
               </label>
               <input
                 type="text"
@@ -232,7 +244,19 @@ export default function Cart({ onRemove }) {
             </div>
 
             <p className="font-semibold text-xl mx-4 mt-4">
-              Total pay: ${totalPrice}
+              Tổng giá sản phẩm: ${productPrice}
+            </p>
+
+            <p className="font-semibold text-xl mx-4 mt-4">
+              VAT (10%): ${productPrice / 10}
+            </p>
+
+            <p className="font-semibold text-xl mx-4 mt-4">
+              Phí vận chuyển: ${shippingFee}
+            </p>
+
+            <p className="font-semibold text-xl mx-4 mt-4">
+              Tổng thanh toán: ${productPrice + productPrice / 10 + shippingFee}
             </p>
 
             <button
@@ -240,7 +264,7 @@ export default function Cart({ onRemove }) {
                   px-4 py-2 border border-transparent rounded-3xl shadow-sm text-base font-medium text-white bg-blue-400 hover:bg-blue-600"
             >
               {" "}
-              Check out
+              Thanh toán
             </button>
           </div>
         </div>
