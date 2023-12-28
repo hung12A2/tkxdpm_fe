@@ -2,6 +2,7 @@
 import { Fragment, useContext, useState, useEffect } from "react";
 import { ItemContext } from "../../App";
 import { Popover, Transition } from "@headlessui/react";
+import logo from '../../images/aims_logo.png'
 import {
   BookmarkAltIcon,
   CursorClickIcon,
@@ -86,7 +87,7 @@ export default function Header() {
               <div className="cursor-pointer flex items-center">
                 <img
                   className="h-8 ml-3 w-auto sm:h-10"
-                  src="https://static.wixstatic.com/media/2cd43b_17040a042929442094fd1a2179d5bd29~mv2.png/v1/fill/w_320,h_320,q_90/2cd43b_17040a042929442094fd1a2179d5bd29~mv2.png"
+                  src= {logo}
                   alt=""
                 />
                 <span className="font-bold text-2xl px-2 text-blue-600">

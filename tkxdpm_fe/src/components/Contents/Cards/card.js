@@ -37,7 +37,7 @@ export default function Card({foodList,state,setState}) {
                         border border-transparent rounded-3xl shadow-sm text-base font-medium text-white bg-green-500 hover:bg-green-600
                         transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110"
                         onClick={()=>{ navigate('/Menu'); setState('all'); setPre(!pre);}} href="#">
-            View all
+            Tất cả
     
             </a>
 

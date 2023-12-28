@@ -21,7 +21,7 @@ export default function Home({foodList}) {
      <Card foodList={foodList} state={state} ></Card>
 
      {/*advertisement */}
-
+{/* 
       <div className="flex flex-col md:flex-row justify-center items-center pt-10 space-x-4 space-y-4 pb-4">
         <div className="basis-1/2 flex flex-col flex-wrap pl-16">
             <p className="mx-auto text-5xl font-bold leading-normal ">Cooked by the <br/>Best Chefs in the<br/> World</p>
@@ -111,7 +111,7 @@ export default function Home({foodList}) {
 
         </div>
 
-      </div>
+      </div> */}
     
 
     <Footer/>

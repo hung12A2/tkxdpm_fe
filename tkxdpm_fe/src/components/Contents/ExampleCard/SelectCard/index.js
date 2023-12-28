@@ -51,7 +51,7 @@ export default function SelectCard({cateList,state,setState}) {
   // },[])
     return (
       <>
-        <p className="text-2xl font-semibold text-center pt-32"> Options</p>
+        <p className="text-2xl font-semibold text-center pt-32"> Nổi bật</p>
          
         <Swiper
         modules={[Autoplay,Navigation]}

@@ -178,7 +178,7 @@ export default function Product({ onAdd, foodList, cartItems }) {
                 handleNotify();
 
               }}
-            >Order now</button>
+            >Mua ngay</button>
           </div>
 
           <div className=" basis-1/3 items-left justify-center">
