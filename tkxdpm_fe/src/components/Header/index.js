@@ -122,6 +122,14 @@ export default function Header() {
             <div
               className="cursor-pointer text-lg font-medium text-gray-500 hover:text-gray-900"
               onClick={() => {
+                navigate("/ListOrdersUser");
+              }}
+            >
+              Đơn hàng
+            </div>
+            <div
+              className="cursor-pointer text-lg font-medium text-gray-500 hover:text-gray-900"
+              onClick={() => {
                 navigate("/About");
               }}
             >
