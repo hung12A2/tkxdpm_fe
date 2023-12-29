@@ -20,6 +20,7 @@ import ErrorPage from './components/Pages/404 Page/errorPage';
 import Forgetpass from './components/Pages/Forget Pass/forgetPass';
 import Sendsuccess from './components/Pages/Forget Pass/sendSuccess';
 import EnterNewPass from './components/Pages/EnterNewPass/enterNewPass';
+import ListOrdersUser from './components/Pages/ListOrders';
 
 export const AddContext = createContext();
 function App() {
@@ -45,9 +46,6 @@ function App() {
     })()
 
   }, [])
-
-  console.log (foodList);
-  console.log (cartItems)
 
   function onAdd(product) {
     const exist = cartItems.find(x => x.id === product.id);
@@ -87,7 +85,7 @@ function App() {
           <Route path="/Product/:_id" element={<Product cartItems={cartItems} onAdd={onAdd} foodList={foodList} />} />
           <Route path="/SignUp" element={<Signup />} />
           <Route path="/EnterNewPassword" element={<EnterNewPass />} />
-
+          <Route path='/ListOrdersUser' element={<ListOrdersUser />} />
 
           <Route element={<ProtectRoutesUser />}>
             <Route path="/Cart" element={<Cart onRemove={onRemove} />} />
