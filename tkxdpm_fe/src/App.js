@@ -21,6 +21,7 @@ import Forgetpass from './components/Pages/Forget Pass/forgetPass';
 import Sendsuccess from './components/Pages/Forget Pass/sendSuccess';
 import EnterNewPass from './components/Pages/EnterNewPass/enterNewPass';
 import ListOrdersUser from './components/Pages/ListOrders';
+import Search from './components/Pages/Search';
 
 export const AddContext = createContext();
 function App() {
@@ -86,6 +87,7 @@ function App() {
           <Route path="/SignUp" element={<Signup />} />
           <Route path="/EnterNewPassword" element={<EnterNewPass />} />
           <Route path='/ListOrdersUser' element={<ListOrdersUser />} />
+          <Route path='/Search' element={<Search />} />
 
           <Route element={<ProtectRoutesUser />}>
             <Route path="/Cart" element={<Cart onRemove={onRemove} />} />

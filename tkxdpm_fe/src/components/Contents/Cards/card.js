@@ -4,17 +4,25 @@ import AddButton from "../Buttons/addButton";
 import CheckButton from "../Buttons/checkButton";
 import {AddContext} from "../../../App"
 
-export default function Card({foodList,state,setState}) {
+export default function Card({foodList,state,setState,keyword}) {
     const navigate=useNavigate();
     const { cartItems }= useContext(AddContext);
     const [pre, setPre] = useState(true);
 
+    console.log(state);
     let foodCate = foodList.filter(e => e.idOfCategory === state);
+    console.log(foodList.length);
+    console.log(foodCate.length);
     if(state ==='all')
         foodCate = foodList;
-    if(state ==='popular'){
+    else if(state ==='popular'){
         foodCate = foodList.filter(e => e.isBestSeller === true);
     }
+
+    if (keyword !== ''){
+        foodCate = foodList.filter(e => e.name.toLowerCase().includes(keyword) || e.productDescription.toLowerCase().includes(keyword) || e.productDetails.toLowerCase().includes(keyword));
+    }
+
     function checkInCart(id){
         // if (!localStorage.getItem('user')) return false
         if(cartItems ===undefined)
@@ -76,7 +84,7 @@ export default function Card({foodList,state,setState}) {
                         </div>
                         
                         <div className="flex justify-between items-center">
-                            <span className='text-3xl font-bold text-gray-900'>${food.price}</span>
+                            <span className='text-3xl font-bold text-gray-900'>{food.price}.000 VNĐ</span>
                             {checkInCart(food.id) && <AddButton></AddButton> ?<CheckButton></CheckButton>:<AddButton></AddButton>}
                            
                         </div>

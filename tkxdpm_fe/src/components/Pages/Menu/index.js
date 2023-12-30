@@ -11,7 +11,6 @@ let cate ='all';
 let foodList=[];
 export default function Menu({foodList,cateList}) {
 
-
     const [state, setState] = useState(cate);
 
     // useEffect(()=>{
