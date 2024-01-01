@@ -18,7 +18,7 @@ export default function Home({foodList}) {
     <Header/>
      <Slider></Slider>
      <Category></Category>
-     <Card foodList={foodList} state={state} ></Card>
+     <Card foodList={foodList} state={state} keyword={''}></Card>
 
      {/*advertisement */}
 {/* 

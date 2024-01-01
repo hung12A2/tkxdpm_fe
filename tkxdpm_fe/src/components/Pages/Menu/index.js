@@ -28,7 +28,7 @@ export default function Menu({foodList,cateList}) {
       <>
         <Header></Header>
         <SelectCard cateList={cateList} state={state} setState={setState}/>
-        <Card foodList={foodList} state={state} setState={setState}/>
+        <Card foodList={foodList} state={state} setState={setState} keyword={''}/>
         <Footer/>
       </>
     )

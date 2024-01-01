@@ -23,6 +23,8 @@ export default function Card({foodList,state,setState,keyword}) {
         foodCate = foodList.filter(e => e.name.toLowerCase().includes(keyword) || e.productDescription.toLowerCase().includes(keyword) || e.productDetails.toLowerCase().includes(keyword));
     }
 
+    var showAllVisiblity = (state === 'all') ? 'hidden' : 'visible';
+
     function checkInCart(id){
         // if (!localStorage.getItem('user')) return false
         if(cartItems ===undefined)
@@ -39,15 +41,15 @@ export default function Card({foodList,state,setState,keyword}) {
 
         <h3 className="basis-1/8 m-auto textfont-medium text-center md:text-left text-xl md:ml-44 flex items-center "></h3>
 
-        <div className="flex basis-1/8 md:flex">
+        <div className="flex basis-1/8 md:flex" style={{visibility: showAllVisiblity}}>
+        <a className="cursor-pointer mr-44 whitespace-nowrap w-36 inline-flex items-center justify-center px-2 py-1
+                    border border-transparent rounded-3xl shadow-sm text-base font-medium text-white bg-green-500 hover:bg-green-600
+                    transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110"
+                    onClick={()=>{ navigate('/Menu'); setState('all'); setPre(!pre);}} href="#">
+                            Tất cả
 
-            <a className="cursor-pointer mr-44 whitespace-nowrap w-36 inline-flex items-center justify-center px-2 py-1
-                        border border-transparent rounded-3xl shadow-sm text-base font-medium text-white bg-green-500 hover:bg-green-600
-                        transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110"
-                        onClick={()=>{ navigate('/Menu'); setState('all'); setPre(!pre);}} href="#">
-            Tất cả
-    
-            </a>
+        </a>
+            
 
         </div>
         </div>
@@ -67,7 +69,7 @@ export default function Card({foodList,state,setState,keyword}) {
                         }}
                         >
 
-                        <img className="w-32 pb-64 rounded-t-lg absolute" src={food.image} alt="product" />
+                        <img className="w-24 pb-64 rounded-t-lg absolute" src={food.image} alt="product" />
                         
                         <div className="px-5 pb-5 pt-20 ">
             

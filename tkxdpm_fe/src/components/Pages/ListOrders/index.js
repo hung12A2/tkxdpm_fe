@@ -25,7 +25,7 @@ function ProductItem({ product }) {
         <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
           <p className="text-sm leading-6 text-gray-900">{`Thể loại: ${product.cateName}`}</p>
           <p className="mt-1 text-xs leading-5 text-gray-500">
-            {`Tổng: $ ${product.totalPrice}`}
+            {`Tổng: ${product.totalPrice}.000 VNĐ`}
           </p>
         </div>
       </li>
@@ -71,13 +71,13 @@ const ItemUser = ({ item, index }) => {
               Phí vận chuyển
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              {`$ ${item.shippingPrice}`}
+              {`${item.shippingPrice}.000 VNĐ`}
             </dd>
           </div>
           <div className="px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-gray-900">Giá</dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              {item.totalPrice}
+              {item.totalPrice}.000 VNĐ
             </dd>
           </div>
           <div className="px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
