@@ -3,8 +3,6 @@ import Category from "../../Contents/ExampleCard/examCard";
 import Card from "../../Contents//Cards/card";
 import Footer from "../../Footer/";
 import Header from "../../Header";
-import dish from "../../../images/dishfood.png";
-import chef from "../../../images/chef.png";
 import {useState,useEffect} from 'react'
 import getDish from "../../../api/dishApi";
 
