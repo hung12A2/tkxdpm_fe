@@ -28,7 +28,9 @@ export default function Login() {
 
            // console.log (formValue)
             const res = await login(formValue); 
-            result =res;
+            result = res;
+
+            console.log (result)
         //    console.log(result.token);
             // const test = await userInfo(localStorage.getItem('user'))
             // console.log(localStorage.getItem('user'))
