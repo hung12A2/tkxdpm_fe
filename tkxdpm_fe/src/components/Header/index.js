@@ -147,7 +147,7 @@ export default function Header() {
             >
               Đơn hàng
             </div>
-            <div
+            {/* <div
               className="cursor-pointer text-lg font-medium text-gray-500 hover:text-gray-900"
               onClick={() => {
                 navigate("/About");
@@ -162,7 +162,7 @@ export default function Header() {
               }}
             >
               Contact
-            </div>
+            </div> */}
           </Popover.Group>
 
           <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
