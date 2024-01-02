@@ -10,7 +10,7 @@ import SelectCategory from "../../Contents/Select/selectCategory";
 
 export default function Search(){
     const [state, setState] = useState('');
-    const [foodlist, setMediaList] = useState([]);
+    const [medialist, setMediaList] = useState([]);
     const [keywordInput, setKeywordInput] = useState('');
     const [keyword, setKeyword] = useState('');
     
@@ -30,7 +30,6 @@ export default function Search(){
    
       // call api
       (async () => {
-        // const res = await updateCart(food,localStorage.getItem('user')); 
         const res = await getDish();
         setMediaList(res);
       })()
@@ -72,7 +71,7 @@ export default function Search(){
                 </div>
             </div>
 
-            <Card foodList={foodlist} state={state} setState={setState} keyword={keyword.trim().toLowerCase()}/>
+            <Card mediaList={medialist} state={state} setState={setState} keyword={keyword.trim().toLowerCase()}/>
 
             <Footer />
         </>

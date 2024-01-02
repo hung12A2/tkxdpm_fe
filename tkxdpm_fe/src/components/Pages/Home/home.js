@@ -8,15 +8,15 @@ import getDish from "../../../api/dishApi";
 
 //
 
-export default function Home({foodList}) {
+export default function Home({mediaList, cateList}) {
     const [state, setstate] = useState('popular');
     return (
       <>
 
     <Header/>
      <Slider></Slider>
-     <Category></Category>
-     <Card foodList={foodList} state={state} keyword={''}></Card>
+     <Category categories={cateList}></Category>
+     <Card mediaList={mediaList} state={state} keyword={''}></Card>
     
 
     <Footer/>

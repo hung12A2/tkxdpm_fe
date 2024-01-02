@@ -36,18 +36,6 @@ const solutions = [
     icon: CursorClickIcon,
   },
   {
-    name: "About",
-    description: "Your customers' data will be safe and secure.",
-    href: "/About",
-    icon: InformationCircleIcon,
-  },
-  {
-    name: "Contact",
-    description: "Connect with third-party tools that you're already using.",
-    href: "/Contact",
-    icon: ViewGridIcon,
-  },
-  {
     name: "Cart",
     description: "Connect with third-party tools that you're already using.",
     href: "/Cart",
@@ -147,22 +135,6 @@ export default function Header() {
             >
               Đơn hàng
             </div>
-            {/* <div
-              className="cursor-pointer text-lg font-medium text-gray-500 hover:text-gray-900"
-              onClick={() => {
-                navigate("/About");
-              }}
-            >
-              About
-            </div>
-            <div
-              className="cursor-pointer text-lg font-medium text-gray-500 hover:text-gray-900"
-              onClick={() => {
-                navigate("/Contact");
-              }}
-            >
-              Contact
-            </div> */}
           </Popover.Group>
 
           <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">

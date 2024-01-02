@@ -6,8 +6,8 @@ import {useState,useEffect} from 'react';
 
 
 let cate ='all';
-let foodList=[];
-export default function Menu({foodList,cateList}) {
+let mediaList=[];
+export default function Menu({mediaList,cateList}) {
 
     const [state, setState] = useState(cate);
 
@@ -15,7 +15,7 @@ export default function Menu({foodList,cateList}) {
       <>
         <Header></Header>
         <SelectCard cateList={cateList} state={state} setState={setState}/>
-        <Card foodList={foodList} state={state} setState={setState} keyword={''}/>
+        <Card mediaList={mediaList} state={state} setState={setState} keyword={''}/>
         <Footer/>
       </>
     )

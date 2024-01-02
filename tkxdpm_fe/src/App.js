@@ -26,11 +26,11 @@ import Search from './components/Pages/Search';
 export const AddContext = createContext();
 function App() {
 
-  const [foodList, setFoodList] = useState ([]);
+  const [mediaList, setMediaList] = useState ([]);
   const [cateList, setCateList] = useState ([]);
-
   const [cartItems, setCartItems] = useState([]);
 
+  let mediaListReal = mediaList.filter(media => !media.isDeleted);
   // update cart by user
   useEffect(() => {
 
@@ -38,10 +38,10 @@ function App() {
     (async () => {
 
       const res = await getCart()
-      const food = await getDish();
+      const media = await getDish();
       const cate = await getCate();
       setCateList (cate);
-      setFoodList (food);
+      setMediaList (media);
       setCartItems (res.products)
 
     })()
@@ -77,13 +77,13 @@ function App() {
 
       <AddContext.Provider value={{cartItems, setCartItems}}>
         <Routes>
-          <Route path="/Menu" element={<Menu foodList={foodList} cateList={cateList} />} />
+          <Route path="/Menu" element={<Menu mediaList={mediaListReal} cateList={cateList} />} />
           <Route path="/About" element={<About />} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/ForgetPass" element={<Forgetpass />} />
           <Route path="/sendSuccess" element={<Sendsuccess />} />
-          <Route path="/Product/:_id" element={<Product cartItems={cartItems} onAdd={onAdd} foodList={foodList} />} />
+          <Route path="/Product/:_id" element={<Product cartItems={cartItems} onAdd={onAdd} mediaList={mediaListReal} />} />
           <Route path="/SignUp" element={<Signup />} />
           <Route path="/EnterNewPassword" element={<EnterNewPass />} />
           <Route path='/ListOrdersUser' element={<ListOrdersUser />} />
@@ -94,7 +94,7 @@ function App() {
             <Route path="/info" element={<Info />} />
           </Route>
 
-          <Route path="/" element={<Home foodList={foodList} />} />
+          <Route path="/" element={<Home mediaList={mediaListReal} cateList={cateList}/>} />
           <Route path="*" element={<ErrorPage />} />
 
           {/*Admin route */}
