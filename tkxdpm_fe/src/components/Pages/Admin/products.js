@@ -32,6 +32,7 @@ export const ListDishes = (props) => {
         <List {...props}>
             <Datagrid bulkActionButtons={false}>
                 <TextField source='id' />
+                <TextField source='name' label = "product name" />
                 <TextField source='cateName' />
                 <TextField source='productDescription' />
                 <TextField source='productDetails' />
