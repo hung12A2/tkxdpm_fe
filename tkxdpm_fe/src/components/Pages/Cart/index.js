@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import Footer from "../../Footer";
 import Header from "../../Header";
 import { AddContext } from "../../../App";
@@ -14,6 +15,14 @@ export default function Cart({ onRemove }) {
   const [address, setAddress] = useState('');
   const [note, setNote] = useState('');
   const [count, setCount] = useState(false);
+  const navigate = useNavigate();
+  const [orderDetails, setOrderDetails] = useState(null);
+
+  // useEffect(() => {
+  //   if (orderDetails !== null) {
+  //     console.log("Order Details Updated:", orderDetails);
+  //   }
+  // }, [orderDetails]);
 
   var productPrice = 0;
   var shippingFee = 0;
@@ -33,13 +42,33 @@ export default function Cart({ onRemove }) {
   const changeNoteValue = (event) => {
     setNote(event.target.value)
   }
-  const handleClickPay =() => {
+
+  const handleClickPay = () => {
     // console.log({name, city, address, note})
+    
     if (!name || !city || !address){
       handleNotify('warning',"Warning",'Cần nhập đủ thông tin')
     } 
     else{
-      handleNotify('info',"Xin lỗi",'Tính năng này đang cập nhật')
+      const orderData = {
+        invoiceName: name,
+        invoiceCity: city,
+        invoiceAddress: address,
+        invoiceNote: note,
+        invoiceProductPrice: productPrice,
+        invoiceShippingFee: shippingFee,
+        invoiceCartItems: cartItems,
+      }
+
+      setOrderDetails(orderData);
+      if (orderDetails !== null) {
+        navigate('/invoice', {state: {orderDetails}});
+      }
+      else{
+        handleNotify('warning',"Warning",'Bấm lại lần nữa ik')
+      }
+      
+      //handleNotify('info',"Xin lỗi",'Tính năng này đang cập nhật') 
     }
   }
 
@@ -48,7 +77,6 @@ export default function Cart({ onRemove }) {
       <ReactNotifications />
       <Header />
       <p className="text-xl font-bold ml-32 pb-8 pt-32">Giỏ hàng</p>
-
       <div className="flex flex-col flex-wrap lg:flex-row items-center justify-center space-y-8">
         {/* cart items */}
         <div className="basis-1/2 flex flex-col flex-wrap items-center space-y-8 lg:pl-32">
@@ -160,6 +188,9 @@ export default function Cart({ onRemove }) {
         <div className="basis-1/3 flex flex-col items-left md:mr-16 px-2">
           <div className="bg-gray-100  rounded-2xl pb-8">
             <p className="text-xl font-semibold mx-8 mt-8">Thanh toán</p>
+            
+            
+              <div>
 
             <p className="mx-8 mt-4">Phương thức thanh toán</p>
 
@@ -298,10 +329,11 @@ export default function Cart({ onRemove }) {
               {" "}
               Thanh toán
             </button>
+            </div>
+            
           </div>
         </div>
       </div>
-
       <Footer />
     </>
   );
