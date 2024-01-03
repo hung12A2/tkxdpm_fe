@@ -21,6 +21,7 @@ import Forgetpass from './components/Pages/Forget Pass/forgetPass';
 import Sendsuccess from './components/Pages/Forget Pass/sendSuccess';
 import EnterNewPass from './components/Pages/EnterNewPass/enterNewPass';
 import ListOrdersUser from './components/Pages/ListOrders';
+import Invoice from './components/Pages/Invoice/invoice';
 
 export const AddContext = createContext();
 function App() {
@@ -91,6 +92,8 @@ function App() {
             <Route path="/Cart" element={<Cart onRemove={onRemove} />} />
             <Route path="/info" element={<Info />} />
           </Route>
+
+          <Route path="/invoice" element={<Invoice />} />
 
           <Route path="/" element={<Home foodList={foodList} />} />
           <Route path="*" element={<ErrorPage />} />
