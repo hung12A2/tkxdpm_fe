@@ -11,7 +11,7 @@ const ErrorPage = () => {
                 <div className="w-full md:w-1/2">
                     <div className="mb-10 lg:mb-20 flex items-center">
                     <img className="h-8 ml-3 w-auto sm:h-10" alt="" src="https://static.wixstatic.com/media/2cd43b_17040a042929442094fd1a2179d5bd29~mv2.png/v1/fill/w_320,h_320,q_90/2cd43b_17040a042929442094fd1a2179d5bd29~mv2.png"/>
-                    <span className="font-bold text-2xl px-2 text-blue-600">Luna Eatery</span>
+                    <span className="font-bold text-2xl px-2 text-blue-600">AIMS</span>
                     </div>
                     <div className="mb-10 md:mb-20 text-gray-600 font-light">
                         <h1 className="font-black uppercase text-3xl lg:text-5xl text-indigo-700 mb-10">404 OOPS</h1>

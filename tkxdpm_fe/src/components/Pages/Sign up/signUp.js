@@ -53,13 +53,14 @@ export default function Signup () {
         (async () => {
 
             const res = await register(formValue); 
+            console.log (res)
             //result = res;
             // console.log(result);
 
             if(res === undefined) {
                 notify ='warning'
                 titleNotify="Warning"
-                messageNotify='Tài khoản đã tồn tại !'
+                messageNotify='Thông tin đăng ký chưa phù hợp !'
                 setState1(!state1)
                 Store.addNotification({
                     title: titleNotify,
@@ -77,10 +78,10 @@ export default function Signup () {
             }
         
             if(res !== undefined) {
-                if(res.id === undefined) {
+                if(res.email === undefined) {
                     notify ='danger'
                     titleNotify="Register failure"
-                    messageNotify="Đăng ký thất bại ";  
+                    messageNotify= res.message;  
                     Store.addNotification({
                         title: titleNotify,
                         message: messageNotify,
@@ -141,13 +142,12 @@ export default function Signup () {
                         />
 
                     <input 
-                        type="text"
+                        type="email"
                         className="block border border-grey-light w-full p-3 rounded mb-4"
                         name="email"
                         placeholder="Email" required
                         onChange={handleChangeText}
                         />
-
                     <input 
                         type="text"
                         className="block border border-grey-light w-full p-3 rounded mb-4"

@@ -3,6 +3,7 @@ import { Fragment, useContext, useState, useEffect } from "react";
 import { ItemContext } from "../../App";
 import { Popover, Transition } from "@headlessui/react";
 import logo from '../../images/aims_logo.png'
+import search from '../../images/search.png'
 import {
   BookmarkAltIcon,
   CursorClickIcon,
@@ -33,18 +34,6 @@ const solutions = [
     description: "Speak directly to your customers in a more meaningful way.",
     href: "/Menu",
     icon: CursorClickIcon,
-  },
-  {
-    name: "About",
-    description: "Your customers' data will be safe and secure.",
-    href: "/About",
-    icon: InformationCircleIcon,
-  },
-  {
-    name: "Contact",
-    description: "Connect with third-party tools that you're already using.",
-    href: "/Contact",
-    icon: ViewGridIcon,
   },
   {
     name: "Cart",
@@ -95,7 +84,26 @@ export default function Header() {
                 </span>
               </div>
             </div>
+            
+            <div
+              className="cursor-pointer text-lg font-medium text-gray-500 hover:text-gray-900"
+              onClick={() => {
+                navigate("/Search");
+              }}  
+            >
+              <div className="cursor-pointer flex items-center">
+                <img
+                  className="h-8 ml-3 w-auto sm:h-10"
+                  src= {search}
+                  alt=""
+                />
+              </div>
+            </div>
+
           </div>
+          
+          
+
           <div className="-mr-2 -my-2 md:hidden">
             <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
               <span className="sr-only">Open menu</span>
@@ -126,22 +134,6 @@ export default function Header() {
               }}
             >
               Đơn hàng
-            </div>
-            <div
-              className="cursor-pointer text-lg font-medium text-gray-500 hover:text-gray-900"
-              onClick={() => {
-                navigate("/About");
-              }}
-            >
-              About
-            </div>
-            <div
-              className="cursor-pointer text-lg font-medium text-gray-500 hover:text-gray-900"
-              onClick={() => {
-                navigate("/Contact");
-              }}
-            >
-              Contact
             </div>
           </Popover.Group>
 

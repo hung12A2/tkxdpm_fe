@@ -68,11 +68,11 @@ let notify = 'warning';
 let titleNotify = 'Add failure';
 let messageNotify = 'Please login to add to cart'
 
-export default function Product({ onAdd, foodList, cartItems }) {
+export default function Product({ onAdd, mediaList, cartItems }) {
 
   // update status
   const [state, setState] = useState(false);
-  const [food, setFood] = useState({
+  const [media, setMedia] = useState({
     id: 0,
     name: "",
     image: "",
@@ -80,15 +80,15 @@ export default function Product({ onAdd, foodList, cartItems }) {
     quantity: ""
   })
   const { _id } = useParams();
-  const foodId = _id;
+  const mediaId = _id;
 
   // find item in data
-  let result = foodList.find(({ id }) => id === (foodId));
+  let result = mediaList.find(({ id }) => id === (mediaId));
   console.log (result);
 
   useEffect(() => {
 
-    setFood({
+    setMedia({
       id: result.id,
       name: result.name,
       image: result.image,
@@ -167,14 +167,14 @@ export default function Product({ onAdd, foodList, cartItems }) {
 
             <p className="text-gray-600">{result.dishDescription}</p>
 
-            <p className="text-4xl font-bold py-4">${result.price}</p>
+            <p className="text-4xl font-bold py-4">{result.price}.000 VNĐ</p>
 
             <button className="whitespace-nowrap w-36 h-12 inline-flex items-center justify-center px-2 py-1
                         border border-transparent rounded-3xl shadow-sm text-base font-medium text-white bg-green-500 hover:bg-green-600
                         transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110"
               onClick={() => {
 
-                if (isLogin) { onAdd(food);; setState(!state); updateCart(result.id, 1); }
+                if (isLogin) { onAdd(media);; setState(!state); updateCart(result.id, 1); }
                 handleNotify();
 
               }}

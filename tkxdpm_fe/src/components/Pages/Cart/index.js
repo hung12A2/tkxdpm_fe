@@ -4,17 +4,22 @@ import Footer from "../../Footer";
 import Header from "../../Header";
 import { AddContext } from "../../../App";
 import { updateCart } from "../../../api/cartApi";
-import SelectCity from "../../Contents/SelectCity/selectCity";
+import SelectCity from "../../Contents/Select/selectCity";
 import { ReactNotifications } from 'react-notifications-component'
 import {handleNotify} from "../../Notification/notification"
+import vnpay_logo from "../../../images/vnpay_logo.png"
 
 export default function Cart({ onRemove }) {
   const { cartItems } = useContext(AddContext);
+  const [paymentMethod, setPaymentMethod] = useState('normal');
   const [name, setName] = useState('');
+  const [phone, setPhoneNum] = useState('');
   const [city, setCity] = useState('');
   const [address, setAddress] = useState('');
   const [note, setNote] = useState('');
+  const [delivery, setDelivery] = useState('');
   const [count, setCount] = useState(false);
+<<<<<<< HEAD
   const navigate = useNavigate();
   const [orderDetails, setOrderDetails] = useState(null);
 
@@ -23,18 +28,33 @@ export default function Cart({ onRemove }) {
   //     console.log("Order Details Updated:", orderDetails);
   //   }
   // }, [orderDetails]);
+=======
+  const [shippingFee, setShippingFee] = useState(10);
+>>>>>>> bf8e85e57be06f20ba97afd8ae1a5e604553857d
 
   var productPrice = 0;
-  var shippingFee = 0;
+  var weight = 2 * cartItems.length;
+
   for (var i = 0; i < cartItems.length; i++) {
     productPrice += cartItems[i].price * cartItems[i].quantity;
   }
 
+  const changePaymentMethod = (event) => {
+    setPaymentMethod(event.target.value);
+  }
   const changeNameValue = (event) => {
     setName(event.target.value)
   }
+
+  const changePhoneValue = (event) => {
+    setPhoneNum(event.target.value)
+  }
   const changeCityValue = (city) => {
-    setCity(city)
+    setCity(city);
+    if (delivery == "rush" && city != "Hà Nội"){
+      handleNotify('warning',"Warning",'Địa chỉ của bạn không hỗ trợ giao hàng nhanh! (Chỉ hỗ trợ: Hà Nội)')
+    }
+    calculateShippingFee();
   }
   const changeAddressValue = (event) => {
     setAddress(event.target.value)
@@ -42,13 +62,32 @@ export default function Cart({ onRemove }) {
   const changeNoteValue = (event) => {
     setNote(event.target.value)
   }
+<<<<<<< HEAD
 
   const handleClickPay = () => {
     // console.log({name, city, address, note})
     
     if (!name || !city || !address){
+=======
+  const changeDelivery = (event) =>{
+    setDelivery(event.target.value);
+    if (event.target.value == "rush" && (!city || city != "Hà Nội")){
+      handleNotify('warning',"Warning",'Địa chỉ của bạn không hỗ trợ giao hàng nhanh! (Chỉ hỗ trợ: Hà Nội)')
+    }
+    calculateShippingFee();
+  }
+  const handleClickPay =() => {
+     console.log({name, phone, city, address, note, delivery})
+    if (!name || !city || !address || !phone){
+>>>>>>> bf8e85e57be06f20ba97afd8ae1a5e604553857d
       handleNotify('warning',"Warning",'Cần nhập đủ thông tin')
-    } 
+    }else if (delivery == "rush" && city != "Hà Nội"){
+      handleNotify('warning',"Warning",'Địa chỉ của bạn không hỗ trợ giao hàng nhanh! (Chỉ hỗ trợ: Hà Nội)')
+    }else if (cartItems.length === 0){
+      handleNotify('warning',"Warning",'Giỏ hàng đang trống')
+    }else if (!validatePhoneNumber(phone)){
+      handleNotify('warning',"Warning",'Số điện thoại không hợp lệ')
+    }
     else{
       const orderData = {
         invoiceName: name,
@@ -72,6 +111,68 @@ export default function Cart({ onRemove }) {
     }
   }
 
+  // Tính phí vận chuyển
+  const calculateShippingFee = () =>{
+    var tmp = 0;
+    productPrice = 0;
+    for (var i = 0; i < cartItems.length; i++) {
+      productPrice += cartItems[i].price * cartItems[i].quantity;
+    }
+
+    if (city){
+      if (productPrice > 100){
+        tmp = 0;
+      }else{
+        if (city == "Hà Nội" || city == "Hồ Chí Minh"){
+          if (weight < 3){
+            tmp = 20;
+          }else{
+            tmp = 20 + Math.ceil((weight - 3) / 0.5) * 2.5;
+          }
+        }else{
+          if (weight < 0.5){
+            tmp = 30;
+          }else{
+            tmp = 30 + Math.ceil((weight - 0.5) / 0.5) * 2.5;
+          }
+        }
+      }
+
+      if (delivery == "rush"){
+        tmp += cartItems.length * 10;
+      }
+
+      setShippingFee(tmp);
+      
+    }
+    else setShippingFee(0);
+  }
+
+  function currencyFormatter(price){
+    price = Math.floor(price);
+    if (price == 0){
+      return '0';
+    }else{
+      if (price > 1000){
+        var hundred = '';
+        if (price % 1000 < 10){
+          hundred = '00' + (price % 1000).toString();
+        }else if (price % 1000 < 100){
+          hundred = '0' + (price % 1000).toString();
+        }
+        else{
+          hundred = (price % 1000).toString();
+        }
+        return (Math.floor(price / 1000)).toString()+ '.' + hundred + '.000'; 
+      }else return price.toString()+'.000';
+    }
+  }
+
+  function validatePhoneNumber(input_str) {
+    var re = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+  
+    return re.test(input_str);
+  }
   return (
     <>
       <ReactNotifications />
@@ -107,6 +208,7 @@ export default function Cart({ onRemove }) {
                     cart.quantity = cart.quantity - 1;
                     if (cart.quantity < 1) cart.quantity = 1;
                     updateCart(cart.id, cart.quantity);
+                    calculateShippingFee();
                   }}
                 >
                   <svg
@@ -133,6 +235,7 @@ export default function Cart({ onRemove }) {
                     setCount(!count);
                     cart.quantity = cart.quantity + 1;
                     updateCart(cart.id, cart.quantity);
+                    calculateShippingFee();
                   }}
                 >
                   <svg
@@ -153,7 +256,7 @@ export default function Cart({ onRemove }) {
                 
 
                 <p className="m-auto ml-8 text-2xl font-semibold">
-                  ${+cart.price * +cart.quantity}
+                  {currencyFormatter(+cart.price * +cart.quantity)} VNĐ
                 </p>
 
                 <button
@@ -200,21 +303,23 @@ export default function Cart({ onRemove }) {
                   id="payment-option-1"
                   type="radio"
                   name="payments"
-                  value="USA"
+                  value="vnpay"
                   className=" ml-4 w-6 h-6 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 
                   dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
-                  defaultChecked
+                  defaultChecked = "true"
+                  onChange={changePaymentMethod}
+
                 />
 
                 <label
                   htmlFor="payment-option-1"
-                  className="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  className="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 text-center"
                 >
                   <img
                     className="w-8 md:w-16 mx-4 mr-6 my-2"
-                    src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png"
-                    alt=""
+                    src= {vnpay_logo}
                   ></img>
+                  Thanh toán qua VN Pay
                 </label>
               </div>
 
@@ -223,14 +328,15 @@ export default function Cart({ onRemove }) {
                   id="payment-option-2"
                   type="radio"
                   name="payments"
-                  value="USA"
+                  value="cash"
                   className=" ml-4 w-6 h-6 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 
                   dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                  onChange={changePaymentMethod}
                 />
 
                 <label
                   htmlFor="payment-option-2"
-                  className="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  className="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 text-center"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -240,6 +346,7 @@ export default function Cart({ onRemove }) {
                   >
                     <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                   </svg>
+                  Thanh toán khi nhận hàng
                 </label>
               </div>
             </div>
@@ -253,6 +360,23 @@ export default function Cart({ onRemove }) {
               </label>
               <input
                 onChange={changeNameValue}
+                type="text"
+                id="large-input"
+                className="bg-gray-50 border border-blue-400 text-gray-900 border-2
+              text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 
+              block w-full p-2.5 "
+              />
+            </div>
+
+            <div className="mb-6 mx-4">
+              <label
+                htmlFor="large-input"
+                className="block mb-2 text-sm font-medium text-gray-900 "
+              >
+                Số điện thoại
+              </label>
+              <input
+                onChange={changePhoneValue}
                 type="text"
                 id="large-input"
                 className="bg-gray-50 border border-blue-400 text-gray-900 border-2
@@ -293,6 +417,55 @@ export default function Cart({ onRemove }) {
                 htmlFor="small-input"
                 className="block mb-2 text-sm font-medium text-gray-900"
               >
+                Phương thức vận chuyển
+              </label>
+              
+              <div className="flex items-center mb-4 border border-green-500 border-2 bg-white rounded-xl mx-8 mt-4 items-center flex w-30 h-10">
+                <input
+                  id="delivery-option-1"
+                  type="radio"
+                  name="delivery"
+                  value="normal"
+                  className=" ml-4 w-6 h-6 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 
+                  dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                  defaultChecked="true"
+                  onChange={changeDelivery}
+                />
+
+                <label
+                  htmlFor="delivery-option-1"
+                  className="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                Đặt hàng thường
+                </label>
+              </div>
+
+              <div className="flex items-center mb-4 border border-green-500 border-2 bg-white rounded-xl mx-8 mt-4 items-center flex w-30 h-10">
+                <input
+                  id="delivery-option-2"
+                  type="radio"
+                  name="delivery"
+                  value="rush"
+                  className=" ml-4 w-6 h-6 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 
+                  dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+                  onChange={changeDelivery}
+                />
+
+                <label
+                  htmlFor="delivery-option-2"
+                  className="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                Đặt hàng nhanh
+                </label>
+              </div>
+
+            </div>
+
+            <div className="mx-4">
+              <label
+                htmlFor="small-input"
+                className="block mb-2 text-sm font-medium text-gray-900"
+              >
                 Ghi chú
               </label>
               <input
@@ -306,19 +479,19 @@ export default function Cart({ onRemove }) {
             </div>
 
             <p className="font-semibold text-xl mx-4 mt-4">
-              Tổng giá sản phẩm: ${productPrice}
+              Tổng giá sản phẩm: {currencyFormatter(productPrice)} VNĐ
             </p>
 
             <p className="font-semibold text-xl mx-4 mt-4">
-              VAT (10%): ${productPrice / 10}
+              VAT (10%): {currencyFormatter(productPrice / 10)} VNĐ
             </p>
 
             <p className="font-semibold text-xl mx-4 mt-4">
-              Phí vận chuyển: ${shippingFee}
+              Phí vận chuyển: {currencyFormatter(shippingFee)} VNĐ
             </p>
 
             <p className="font-semibold text-xl mx-4 mt-4">
-              Tổng thanh toán: ${productPrice + productPrice / 10 + shippingFee}
+              Tổng thanh toán: {currencyFormatter(productPrice + productPrice / 10 + shippingFee)} VNĐ
             </p>
 
             <button

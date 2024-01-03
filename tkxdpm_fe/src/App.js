@@ -21,16 +21,20 @@ import Forgetpass from './components/Pages/Forget Pass/forgetPass';
 import Sendsuccess from './components/Pages/Forget Pass/sendSuccess';
 import EnterNewPass from './components/Pages/EnterNewPass/enterNewPass';
 import ListOrdersUser from './components/Pages/ListOrders';
+<<<<<<< HEAD
 import Invoice from './components/Pages/Invoice/invoice';
+=======
+import Search from './components/Pages/Search';
+>>>>>>> bf8e85e57be06f20ba97afd8ae1a5e604553857d
 
 export const AddContext = createContext();
 function App() {
 
-  const [foodList, setFoodList] = useState ([]);
+  const [mediaList, setMediaList] = useState ([]);
   const [cateList, setCateList] = useState ([]);
-
   const [cartItems, setCartItems] = useState([]);
 
+  let mediaListReal = mediaList.filter(media => !media.isDeleted);
   // update cart by user
   useEffect(() => {
 
@@ -38,10 +42,10 @@ function App() {
     (async () => {
 
       const res = await getCart()
-      const food = await getDish();
+      const media = await getDish();
       const cate = await getCate();
       setCateList (cate);
-      setFoodList (food);
+      setMediaList (media);
       setCartItems (res.products)
 
     })()
@@ -77,25 +81,30 @@ function App() {
 
       <AddContext.Provider value={{cartItems, setCartItems}}>
         <Routes>
-          <Route path="/Menu" element={<Menu foodList={foodList} cateList={cateList} />} />
+          <Route path="/Menu" element={<Menu mediaList={mediaListReal} cateList={cateList} />} />
           <Route path="/About" element={<About />} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/ForgetPass" element={<Forgetpass />} />
           <Route path="/sendSuccess" element={<Sendsuccess />} />
-          <Route path="/Product/:_id" element={<Product cartItems={cartItems} onAdd={onAdd} foodList={foodList} />} />
+          <Route path="/Product/:_id" element={<Product cartItems={cartItems} onAdd={onAdd} mediaList={mediaListReal} />} />
           <Route path="/SignUp" element={<Signup />} />
           <Route path="/EnterNewPassword" element={<EnterNewPass />} />
           <Route path='/ListOrdersUser' element={<ListOrdersUser />} />
+          <Route path='/Search' element={<Search />} />
 
           <Route element={<ProtectRoutesUser />}>
             <Route path="/Cart" element={<Cart onRemove={onRemove} />} />
             <Route path="/info" element={<Info />} />
           </Route>
 
+<<<<<<< HEAD
           <Route path="/invoice" element={<Invoice />} />
 
           <Route path="/" element={<Home foodList={foodList} />} />
+=======
+          <Route path="/" element={<Home mediaList={mediaListReal} cateList={cateList}/>} />
+>>>>>>> bf8e85e57be06f20ba97afd8ae1a5e604553857d
           <Route path="*" element={<ErrorPage />} />
 
           {/*Admin route */}

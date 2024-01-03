@@ -8,47 +8,8 @@ import 'swiper/css';
 import 'swiper/css/autoplay';
 import 'swiper/css/navigation';
 
-// const selectMenu = [
-//     {
-//         title:'Fast food',
-//         type:'fastfood',
-//         image:'https://www.seekpng.com/png/full/89-891255_fast-food-png-food.png'
-//     },
-//     {
-//         title:'Sushi',
-//         type:'sushi',
-//         image:'https://pngimg.com/uploads/sushi/sushi_PNG9202.png'
-//     },
-//     {
-//         title:'Dessert',
-//         type:'dessert',
-//         image:'https://www.nicepng.com/png/full/95-951391_caramel-pudding-cream-caramel-pudding-png.png'
-//     },
-//     {
-//         title:'Soups',
-//         type:'soups',
-//         image:'https://salt.tikicdn.com/cache/w1200/ts/product/e4/3b/54/8c56ac7bfc2f45bba05efcde966d9250.png'
-//     },
-//     {
-//         title:'Drinks',
-//         type:'drinks',
-//         image:'https://shopnguyenlieu.com/wp-content/uploads/2019/09/tradaothachdao-550x467.png'
-//     },
-//   ]
-
-// let selectMenu =[];
-
 export default function SelectCard({cateList,state,setState}) {
 
-  // useEffect(()=>{
-   
-  //   // call api
-  //   (async () => {
-  //     // const res = await updateCart(food,localStorage.getItem('user')); 
-  //     const res = await getCate();
-  //     selectMenu=res;
-  //   })()
-  // },[])
     return (
       <>
         <p className="text-2xl font-semibold text-center pt-32"> Nổi bật</p>
