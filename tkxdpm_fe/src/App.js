@@ -87,7 +87,7 @@ function App() {
           <Route path="/SignUp" element={<Signup />} />
           <Route path="/EnterNewPassword" element={<EnterNewPass />} />
           <Route path='/ListOrdersUser' element={<ListOrdersUser />} />
-          <Route path='/Search' element={<Search />} />
+          <Route path='/Search' element={<Search categories={cateList}/>} />
 
           <Route element={<ProtectRoutesUser />}>
             <Route path="/Cart" element={<Cart onRemove={onRemove} />} />

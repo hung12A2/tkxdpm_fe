@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import Select from 'react-select';
 
 
-const SelectCategory = ({onSelectCategory}) => {
+const SelectCategory = ({onSelectCategory, categories}) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const categories = [{label: 'Sách', id: '1'}, {label: 'Đĩa than', id: '2'} , {label: 'Đĩa CD', id: '3'}, {label: 'Đĩa DVD', id: '4'}];
+  const cateList = [];
+
+  categories.map((category) => cateList.push({label: category.cateName, id: category.id}));
 
   const handleCategoryChange = (selectedOption) => {
     setSelectedCategory(selectedOption);
@@ -16,7 +18,7 @@ const SelectCategory = ({onSelectCategory}) => {
       <Select
         value={selectedCategory}
         onChange={handleCategoryChange}
-        options={categories}
+        options={cateList}
         isMulti={false}
         placeholder = "Chọn thể loại"
       />
