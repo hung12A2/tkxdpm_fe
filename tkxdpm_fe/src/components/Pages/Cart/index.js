@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import Footer from "../../Footer";
 import Header from "../../Header";
 import { AddContext } from "../../../App";
@@ -18,6 +19,9 @@ export default function Cart({ onRemove }) {
   const [note, setNote] = useState('');
   const [delivery, setDelivery] = useState('');
   const [count, setCount] = useState(false);
+  const navigate = useNavigate();
+  const [orderDetails, setOrderDetails] = useState(null);
+
   const [shippingFee, setShippingFee] = useState(10);
 
   var productPrice = 0;
@@ -69,8 +73,63 @@ export default function Cart({ onRemove }) {
       handleNotify('warning',"Warning",'Số điện thoại không hợp lệ')
     }
     else{
-      handleNotify('info',"Xin lỗi",'Tính năng này đang cập nhật')
+      const orderData = {
+        invoiceName: name,
+        invoiceCity: city,
+        invoiceAddress: address,
+        invoiceNote: note,
+        invoiceProductPrice: productPrice,
+        invoiceShippingFee: shippingFee,
+        invoiceCartItems: cartItems,
+      }
+
+      setOrderDetails(orderData);
+      if (orderDetails !== null) {
+        navigate('/invoice', {state: {orderDetails}});
+      }
+      else{
+        handleNotify('warning',"Warning",'Bấm lại lần nữa ik')
+      }
+      
+      //handleNotify('info',"Xin lỗi",'Tính năng này đang cập nhật') 
     }
+  }
+
+  // Tính phí vận chuyển
+  const calculateShippingFee = () =>{
+    var tmp = 0;
+    productPrice = 0;
+    for (var i = 0; i < cartItems.length; i++) {
+      productPrice += cartItems[i].price * cartItems[i].quantity;
+    }
+
+    if (city){
+      if (productPrice > 100){
+        tmp = 0;
+      }else{
+        if (city == "Hà Nội" || city == "Hồ Chí Minh"){
+          if (weight < 3){
+            tmp = 20;
+          }else{
+            tmp = 20 + Math.ceil((weight - 3) / 0.5) * 2.5;
+          }
+        }else{
+          if (weight < 0.5){
+            tmp = 30;
+          }else{
+            tmp = 30 + Math.ceil((weight - 0.5) / 0.5) * 2.5;
+          }
+        }
+      }
+
+      if (delivery == "rush"){
+        tmp += cartItems.length * 10;
+      }
+
+      setShippingFee(tmp);
+      
+    }
+    else setShippingFee(0);
   }
 
   // Tính phí vận chuyển
@@ -140,7 +199,6 @@ export default function Cart({ onRemove }) {
       <ReactNotifications />
       <Header />
       <p className="text-xl font-bold ml-32 pb-8 pt-32">Giỏ hàng</p>
-
       <div className="flex flex-col flex-wrap lg:flex-row items-center justify-center space-y-8">
         {/* cart items */}
         <div className="basis-1/2 flex flex-col flex-wrap items-center space-y-8 lg:pl-32">
@@ -254,6 +312,9 @@ export default function Cart({ onRemove }) {
         <div className="basis-1/3 flex flex-col items-left md:mr-16 px-2">
           <div className="bg-gray-100  rounded-2xl pb-8">
             <p className="text-xl font-semibold mx-8 mt-8">Thanh toán</p>
+            
+            
+              <div>
 
             <p className="mx-8 mt-4">Phương thức thanh toán</p>
 
@@ -462,10 +523,11 @@ export default function Cart({ onRemove }) {
               {" "}
               Thanh toán
             </button>
+            </div>
+            
           </div>
         </div>
       </div>
-
       <Footer />
     </>
   );
