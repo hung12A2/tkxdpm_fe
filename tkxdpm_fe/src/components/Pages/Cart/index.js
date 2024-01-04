@@ -132,43 +132,6 @@ export default function Cart({ onRemove }) {
     else setShippingFee(0);
   }
 
-  // Tính phí vận chuyển
-  const calculateShippingFee = () =>{
-    var tmp = 0;
-    productPrice = 0;
-    for (var i = 0; i < cartItems.length; i++) {
-      productPrice += cartItems[i].price * cartItems[i].quantity;
-    }
-
-    if (city){
-      if (productPrice > 100){
-        tmp = 0;
-      }else{
-        if (city == "Hà Nội" || city == "Hồ Chí Minh"){
-          if (weight < 3){
-            tmp = 20;
-          }else{
-            tmp = 20 + Math.ceil((weight - 3) / 0.5) * 2.5;
-          }
-        }else{
-          if (weight < 0.5){
-            tmp = 30;
-          }else{
-            tmp = 30 + Math.ceil((weight - 0.5) / 0.5) * 2.5;
-          }
-        }
-      }
-
-      if (delivery == "rush"){
-        tmp += cartItems.length * 10;
-      }
-
-      setShippingFee(tmp);
-      
-    }
-    else setShippingFee(0);
-  }
-
   function currencyFormatter(price){
     price = Math.floor(price);
     if (price == 0){
