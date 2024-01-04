@@ -16,9 +16,15 @@ import axios from '../../../setup/CustomAxios';
 import { useRefresh } from 'react-admin';
 
 
-export const ListProducts = (props) => {
+export const ListCategories = (props) => {
 
+ 
   const refresh = useRefresh ();
+
+  const handleDeleteButton =async (id) => {
+    await axios.put(`/categories/${id}/del`)
+    refresh();
+  }
   return (
     <List {...props}  >
       <Datagrid bulkActionButtons={false}>
@@ -28,10 +34,7 @@ export const ListProducts = (props) => {
         <TextField source='isDeleted' />
         <EditButton basePath='/products' />
         <FunctionField render={record => (
-          <Button style={{ color: "red" }} onClick={async () => {
-            await axios.put(`/categories/${record.id}/del`)
-            refresh();
-          }}>DELETE</Button>
+          <Button style={{ color: "red" }} onClick={() => handleDeleteButton(record.id)}>DELETE</Button>
         )} />
   
       </Datagrid>
@@ -39,7 +42,7 @@ export const ListProducts = (props) => {
   )
 }
 
-export const editProduct = (props) => (
+export const EditCategory = (props) => (
   <Edit {...props}>
     <SimpleForm>
       <TextInput source='cateName' />
@@ -48,7 +51,7 @@ export const editProduct = (props) => (
   </Edit>
 )
 
-export const createProduct = (props) => (
+export const CreateCategory = (props) => (
   <Create {...props}>
     <SimpleForm>
       <TextInput source='cateName' />

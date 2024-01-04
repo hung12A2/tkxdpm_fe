@@ -1,10 +1,10 @@
 import * as React from "react";
 import { fetchUtils, Admin, Resource } from 'react-admin'
 import simpleRestProvider from 'ra-data-simple-rest'
-import { ListProducts, editProduct, createProduct } from './categories'
-import { ListDishes, CreateDish, EditDishes } from "./products";
+import { ListCategories, EditCategory, CreateCategory } from './categories'
+import { ListProducts, CreateProduct, EditProduct } from "./products";
 import axios from '../../../setup/CustomAxios';
-import { ListOrders } from "./order";
+import { CreateDish, ListOrders } from "./order";
 import { AppBar, Layout } from "react-admin";
 import { useNavigate } from "react-router-dom";
 
@@ -36,17 +36,17 @@ export default function AdminPage() {
         >
             <Resource
                 name='categories'
-                list={ListProducts}
-                edit={editProduct}
-                create={createProduct}
+                list={ListCategories}
+                edit={EditCategory}
+                create={CreateCategory}
                 
             />
 
             <Resource
                 name="products"
-                list={ListDishes}
-                edit={EditDishes}
-                create={CreateDish}
+                list={ListProducts}
+                edit={EditProduct}
+                create={CreateProduct}
             />
 
             <Resource
