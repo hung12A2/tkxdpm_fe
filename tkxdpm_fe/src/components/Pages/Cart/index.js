@@ -81,6 +81,7 @@ export default function Cart({ onRemove }) {
         invoiceProductPrice: productPrice,
         invoiceShippingFee: shippingFee,
         invoiceCartItems: cartItems,
+        invoicePaymentMethod: paymentMethod
       }
 
       setOrderDetails(orderData);
@@ -88,10 +89,8 @@ export default function Cart({ onRemove }) {
         navigate('/invoice', {state: {orderDetails}});
       }
       else{
-        handleNotify('warning',"Warning",'Bấm lại lần nữa ik')
+        handleNotify('warning',"Warning",'Vui lòng bấm "Thanh toán" thêm lần nữa');
       }
-      
-      //handleNotify('info',"Xin lỗi",'Tính năng này đang cập nhật') 
     }
   }
 
