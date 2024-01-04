@@ -1,30 +1,4 @@
 import { useNavigate } from 'react-router-dom'
-import dvd from '../../../images/dvd.png'
-import dia_than from '../../../images/dia_than.png'
-import sach from '../../../images/Sach_exam.jpg'
-
-// const categories =[
-//     {   
-//         id:1,
-//         name:'Sách',
-//         description:'Học tập và giải trí',
-//         image: sach
-//     },
-//     {
-//         id:2,
-//         name:'Đĩa than',
-//         description:'Albums',
-//         image: dia_than
-//     },
-//     {
-//         id:3,
-//         name:'Đĩa DVD',
-//         description:'Phim lẻ, phim bộ',
-//         image: dvd
-//     },
-
-
-// ];
 
 export default function Category({categories}) {
     const navigate=useNavigate();

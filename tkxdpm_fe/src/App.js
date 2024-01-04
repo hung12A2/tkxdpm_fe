@@ -21,11 +21,9 @@ import Forgetpass from './components/Pages/Forget Pass/forgetPass';
 import Sendsuccess from './components/Pages/Forget Pass/sendSuccess';
 import EnterNewPass from './components/Pages/EnterNewPass/enterNewPass';
 import ListOrdersUser from './components/Pages/ListOrders';
-<<<<<<< HEAD
 import Invoice from './components/Pages/Invoice/invoice';
-=======
 import Search from './components/Pages/Search';
->>>>>>> bf8e85e57be06f20ba97afd8ae1a5e604553857d
+
 
 export const AddContext = createContext();
 function App() {
@@ -91,20 +89,16 @@ function App() {
           <Route path="/SignUp" element={<Signup />} />
           <Route path="/EnterNewPassword" element={<EnterNewPass />} />
           <Route path='/ListOrdersUser' element={<ListOrdersUser />} />
-          <Route path='/Search' element={<Search />} />
+          <Route path='/Search' element={<Search categories={cateList}/>} />
 
           <Route element={<ProtectRoutesUser />}>
             <Route path="/Cart" element={<Cart onRemove={onRemove} />} />
             <Route path="/info" element={<Info />} />
           </Route>
 
-<<<<<<< HEAD
           <Route path="/invoice" element={<Invoice />} />
 
-          <Route path="/" element={<Home foodList={foodList} />} />
-=======
           <Route path="/" element={<Home mediaList={mediaListReal} cateList={cateList}/>} />
->>>>>>> bf8e85e57be06f20ba97afd8ae1a5e604553857d
           <Route path="*" element={<ErrorPage />} />
 
           {/*Admin route */}

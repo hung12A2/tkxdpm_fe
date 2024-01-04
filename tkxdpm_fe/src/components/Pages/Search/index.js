@@ -7,8 +7,7 @@ import {useState,useEffect} from 'react';
 import getDish from "../../../api/dishApi";
 import SelectCategory from "../../Contents/Select/selectCategory";
 
-
-export default function Search(){
+export default function Search({categories}){
     const [state, setState] = useState('');
     const [medialist, setMediaList] = useState([]);
     const [keywordInput, setKeywordInput] = useState('');
@@ -66,6 +65,7 @@ export default function Search(){
                     <div className='w-40'>
                         <SelectCategory
                           onSelectCategory={handleChangeCategory}
+                          categories={categories}
                         />
                     </div>
                 </div>

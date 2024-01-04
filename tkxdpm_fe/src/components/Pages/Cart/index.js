@@ -19,18 +19,10 @@ export default function Cart({ onRemove }) {
   const [note, setNote] = useState('');
   const [delivery, setDelivery] = useState('');
   const [count, setCount] = useState(false);
-<<<<<<< HEAD
   const navigate = useNavigate();
   const [orderDetails, setOrderDetails] = useState(null);
 
-  // useEffect(() => {
-  //   if (orderDetails !== null) {
-  //     console.log("Order Details Updated:", orderDetails);
-  //   }
-  // }, [orderDetails]);
-=======
   const [shippingFee, setShippingFee] = useState(10);
->>>>>>> bf8e85e57be06f20ba97afd8ae1a5e604553857d
 
   var productPrice = 0;
   var weight = 2 * cartItems.length;
@@ -62,13 +54,6 @@ export default function Cart({ onRemove }) {
   const changeNoteValue = (event) => {
     setNote(event.target.value)
   }
-<<<<<<< HEAD
-
-  const handleClickPay = () => {
-    // console.log({name, city, address, note})
-    
-    if (!name || !city || !address){
-=======
   const changeDelivery = (event) =>{
     setDelivery(event.target.value);
     if (event.target.value == "rush" && (!city || city != "Hà Nội")){
@@ -79,7 +64,6 @@ export default function Cart({ onRemove }) {
   const handleClickPay =() => {
      console.log({name, phone, city, address, note, delivery})
     if (!name || !city || !address || !phone){
->>>>>>> bf8e85e57be06f20ba97afd8ae1a5e604553857d
       handleNotify('warning',"Warning",'Cần nhập đủ thông tin')
     }else if (delivery == "rush" && city != "Hà Nội"){
       handleNotify('warning',"Warning",'Địa chỉ của bạn không hỗ trợ giao hàng nhanh! (Chỉ hỗ trợ: Hà Nội)')
@@ -109,6 +93,43 @@ export default function Cart({ onRemove }) {
       
       //handleNotify('info',"Xin lỗi",'Tính năng này đang cập nhật') 
     }
+  }
+
+  // Tính phí vận chuyển
+  const calculateShippingFee = () =>{
+    var tmp = 0;
+    productPrice = 0;
+    for (var i = 0; i < cartItems.length; i++) {
+      productPrice += cartItems[i].price * cartItems[i].quantity;
+    }
+
+    if (city){
+      if (productPrice > 100){
+        tmp = 0;
+      }else{
+        if (city == "Hà Nội" || city == "Hồ Chí Minh"){
+          if (weight < 3){
+            tmp = 20;
+          }else{
+            tmp = 20 + Math.ceil((weight - 3) / 0.5) * 2.5;
+          }
+        }else{
+          if (weight < 0.5){
+            tmp = 30;
+          }else{
+            tmp = 30 + Math.ceil((weight - 0.5) / 0.5) * 2.5;
+          }
+        }
+      }
+
+      if (delivery == "rush"){
+        tmp += cartItems.length * 10;
+      }
+
+      setShippingFee(tmp);
+      
+    }
+    else setShippingFee(0);
   }
 
   // Tính phí vận chuyển
