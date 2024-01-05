@@ -5,6 +5,7 @@ import Header from '../../Header';
 import Footer from '../../Footer';
 import { AddContext } from '../../../App';
 import { useContext } from 'react';
+import createUserOrders from "../../../api/createOrderAPI";
 import Pay from "../../../api/VNPay";
 
 const Invoice = () => {
@@ -14,13 +15,21 @@ const Invoice = () => {
   const { orderDetails } = location.state || {};
 
   //const {invoiceCartItems} = orderDetails.invoiceCartItems;
-  const { cartItems } = useContext(AddContext);
+  const { cartItems, setCartItems} = useContext(AddContext);
 
   const navigate = useNavigate();
   const paymentMethod = orderDetails.invoicePaymentMethod;
   const productPrice = orderDetails.invoiceProductPrice;
   const shippingFee = orderDetails.invoiceShippingFee;
   const totalMoney = (productPrice + productPrice / 10 + shippingFee);
+  
+  let paymentDescription;
+  if (paymentMethod == "vnpay" || paymentMethod == "normal") {
+    paymentDescription = "Thanh toán qua VNPay";
+  }
+  else {
+    paymentDescription = "Thanh toán khi nhận hàng"
+  }
 
   // Kiểm tra xem có thông tin đơn hàng hay không
   if (!orderDetails) {
@@ -28,12 +37,15 @@ const Invoice = () => {
   }
 
   const handlePayment = async () => {
-    if (paymentMethod == "vnpay" || paymentMethod == "normal") {
+    if (paymentMethod === "vnpay" || paymentMethod === "normal") {
       await Pay(totalMoney*1000);
     }
-    if (paymentMethod == "cash") {
-      navigate("/ReturnPage")
+    if (paymentMethod === "cash") {
+      await createUserOrders(orderDetails.invoiceAddress, paymentMethod, shippingFee);
+      setCartItems([]);
+      navigate("/ReturnPageCash")
     }
+
     if(localStorage){
       localStorage.removeItem('paymentData');
       localStorage.setItem('paymentData', JSON.stringify({orderDetails}));
@@ -41,14 +53,6 @@ const Invoice = () => {
     else{
       localStorage.setItem('paymentData', JSON.stringify({orderDetails}));
     }
-  }
-
-  let paymentDescription;
-  if (paymentMethod == "vnpay" || paymentMethod == "normal") {
-    paymentDescription = "Thanh toán qua VNPay";
-  }
-  else {
-    paymentDescription = "Thanh toán khi nhận hàng"
   }
 
   function currencyFormatter(price) {
@@ -75,7 +79,6 @@ const Invoice = () => {
 
     <>
       <Header />
-
       <div className='pt-32'>
         <h1 className='text-5xl font-bold m-auto ml-20 text-primary border-b-2'>Invoice</h1>
 

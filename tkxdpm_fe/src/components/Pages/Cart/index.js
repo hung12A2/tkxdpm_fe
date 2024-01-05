@@ -62,7 +62,6 @@ export default function Cart({ onRemove }) {
     calculateShippingFee();
   }
   const handleClickPay =() => {
-     console.log({name, phone, city, address, note, delivery})
     if (!name || !city || !address || !phone){
       handleNotify('warning',"Warning",'Cần nhập đủ thông tin')
     }else if (delivery == "rush" && city != "Hà Nội"){

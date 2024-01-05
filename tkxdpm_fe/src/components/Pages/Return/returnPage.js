@@ -2,6 +2,7 @@ import Footer from "../../Footer/";
 import Header from "../../Header";
 import { useContext, useEffect } from "react";
 import createUserOrders from "../../../api/createOrderAPI";
+import { useLocation } from "react-router-dom";
 import { AddContext } from "../../../App";
 
 const backToHome = () => {
@@ -9,31 +10,49 @@ const backToHome = () => {
 }
 
 const ReturnPage = () => {
+    const { cartItems, setCartItems } = useContext(AddContext);
+
     let shippingAddress;
-    let paymentMethod;
+    const paymentMethod = "Thanh toán qua VNPay";
+    let success;
     let shippingPrice;
+    var paymentDescription;
+
     const storedData = localStorage.getItem('paymentData');
     if (storedData) {
         const { orderDetails } = JSON.parse(storedData);
-
         shippingAddress = orderDetails.invoiceAddress;
-        if (orderDetails.invoicePaymentMethod === "vnpay" || orderDetails.invoicePaymentMethod === "normal") {
-            paymentMethod = "Thanh toán qua VNPay";
-        }
-        else {
-            paymentMethod = "Thanh toán khi nhận hàng"
-        }
-        shippingPrice = orderDetails.invoiceShippingFee;  
+        shippingPrice = orderDetails.invoiceShippingFee;
     }
-    const {setCartItems} = useContext(AddContext);
 
-    const createOrder = async () => {
-        await createUserOrders(shippingAddress, paymentMethod, shippingPrice);
-        setCartItems([]); // set cart to 0 items
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const transactionStatus = queryParams.get("vnp_TransactionStatus");
+    if (transactionStatus === "00") {
+        paymentDescription = "thành công";
+        success = 1;
     }
-    
+    else {
+        paymentDescription = "thất bại"
+        success = 0;
+    }
+
     useEffect(() => {
-        createOrder();
+        const createOrder = async () => {
+            try {
+                await createUserOrders(shippingAddress, paymentMethod, shippingPrice);
+                //setCartItems([]);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        
+        if (success) {
+            //setCartItems([]);
+            createOrder();
+            localStorage.removeItem('paymentData');
+            console.log("after:", cartItems)
+        }
     }, []);
 
     return (
@@ -41,11 +60,12 @@ const ReturnPage = () => {
             <Header></Header>
             <div className="flex items-center justify-center h-screen">
                 <div className="text-center">
-                    <h1 className="mt-40 text-green-500 text-4xl font-bold mb-4">Đặt hàng thành công!</h1>
+                    <h1 className="mt-40 text-green-500 text-4xl font-bold mb-4">Đặt hàng {paymentDescription}!</h1>
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={backToHome}>
                         Trở về trang chủ
                     </button>
                 </div>
+                {console.log("before:", cartItems)}
             </div>
             <Footer></Footer>
         </>

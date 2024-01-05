@@ -24,6 +24,7 @@ import ListOrdersUser from './components/Pages/ListOrders';
 import Invoice from './components/Pages/Invoice/invoice';
 import Search from './components/Pages/Search';
 import ReturnPage from './components/Pages/Return/returnPage';
+import ReturnPageCash from './components/Pages/Return/returnPageCash';
 
 export const AddContext = createContext();
 function App() {
@@ -96,6 +97,7 @@ function App() {
             <Route path="/info" element={<Info />} />
           </Route>
           <Route path="/ReturnPage" element={<ReturnPage/>}></Route>
+          <Route path="/ReturnPageCash" element={<ReturnPageCash/>}></Route>
           <Route path="/invoice" element={<Invoice />} />
 
           <Route path="/" element={<Home mediaList={mediaListReal} cateList={cateList}/>} />
