@@ -1,6 +1,6 @@
 import Footer from "../../Footer/";
 import Header from "../../Header";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useLayoutEffect } from "react";
 import createUserOrders from "../../../api/createOrderAPI";
 import { useLocation } from "react-router-dom";
 import { AddContext } from "../../../App";
@@ -48,12 +48,13 @@ const ReturnPage = () => {
         }
         
         if (success) {
-            //setCartItems([]);
+            if(cartItems){
+                setCartItems([]);
+            }
             createOrder();
             localStorage.removeItem('paymentData');
-            console.log("after:", cartItems)
         }
-    }, []);
+    });
 
     return (
         <>
@@ -65,7 +66,6 @@ const ReturnPage = () => {
                         Trở về trang chủ
                     </button>
                 </div>
-                {console.log("before:", cartItems)}
             </div>
             <Footer></Footer>
         </>

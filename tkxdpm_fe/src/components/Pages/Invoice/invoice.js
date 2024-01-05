@@ -39,6 +39,7 @@ const Invoice = () => {
   const handlePayment = async () => {
     if (paymentMethod === "vnpay" || paymentMethod === "normal") {
       await Pay(totalMoney*1000);
+      //setCartItems([]);
     }
     if (paymentMethod === "cash") {
       await createUserOrders(orderDetails.invoiceAddress, paymentMethod, shippingFee);
