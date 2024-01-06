@@ -29,26 +29,21 @@ import ReturnPageCash from './components/Pages/Return/returnPageCash';
 export const AddContext = createContext();
 function App() {
 
-  const [mediaList, setMediaList] = useState ([]);
   const [cateList, setCateList] = useState ([]);
   const [cartItems, setCartItems] = useState([]);
+  const [mediaListReal, setMediaListReal] = useState([]);
 
-  let mediaListReal = mediaList.filter(media => !media.isDeleted);
   // update cart by user
   useEffect(() => {
-
     // call api
     (async () => {
-
-      const res = await getCart()
-      const media = await getDish();
+      const mediaList = await getDish();
       const cate = await getCate();
+      setMediaListReal (mediaList.filter (media => !media.isDeleted))
       setCateList (cate);
-      setMediaList (media);
+      const res = await getCart()
       setCartItems (res.products)
-
     })()
-
   }, [])
 
   function onAdd(product) {
